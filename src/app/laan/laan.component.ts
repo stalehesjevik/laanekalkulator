@@ -27,9 +27,9 @@ export class LaanComponent implements OnInit {
   }
 
   initVerdier(): void {
-    this.laanebelop = 4700000;
-    this.aarligRente = 1.59;
-    this.antallAar = 30;
+    this.laanebelop = 0;
+    this.aarligRente = 0;
+    this.antallAar = 0;
     this.antallTerminer = 0;
     this.totaltAntallTerminer = 0;
     this.manedligRente = 0;
