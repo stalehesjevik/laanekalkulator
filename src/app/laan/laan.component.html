@@ -1,0 +1,85 @@
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <h3 class="title is-3">Låneberegning annuitetslån</h3>
+        <div class="field">
+          <label class="label">Lånebeløp</label>
+          <div class="control">
+            <input [(ngModel)]="laanebelop" placeholder="Beløp" type="number" (keyup.enter)="beregnTerminer()">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Årlig rente</label>
+          <div class="control">
+            <input [(ngModel)]="aarligRente" placeholder="Rente" type="number" (keyup.enter)="beregnTerminer()">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Antall år</label>
+          <div class="control">
+            <input [(ngModel)]="antallAar" placeholder="Antall år" type="number" (keyup.enter)="beregnTerminer()">
+          </div>
+        </div>
+
+        <div class="field is-grouped">
+          <div class="control">            
+            <button class="button is-link" (click)="beregnTerminer()">Beregn</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <h3 class="title is-3">Resultat</h3>
+        Antall terminer: {{antallTerminer}}<br>
+        Månedlig rente: {{manedligRente}}<br>
+        Terminbeløp: {{terminBelop}}<br>
+        Antall terminer beregnet: {{terminer.length}} <br>  
+      </div>
+    </div>    
+  </div>
+</section>
+
+
+<div class="content">
+  <div *ngIf="terminer.length > 0">
+    <table>
+      <tr>
+        <th>Termin</th>
+        <th>Innbetaling</th>
+        <th>Avdrag</th>
+        <th>Renter</th>
+        <th>Restgjeld</th>
+        <th>Gjenstående terminer</th>      
+      </tr>    
+      <tr *ngFor="let termin of terminer">     
+          <td>
+            {{termin.terminNr}}
+          </td>
+          <td>
+            {{termin.terminbelop}}
+          </td>
+          <td>
+            {{termin.avdrag}}
+          </td>
+          <td>
+            {{termin.rentebelop}}
+          </td>
+          <td>
+            {{termin.restLaanebelop}}
+          </td>
+          <td>
+            {{termin.gjenstaaendeTerminer}}
+          </td>     
+      </tr>
+    </table>
+  </div>
+  
+</div>
+
