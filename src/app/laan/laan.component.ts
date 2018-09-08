@@ -1,5 +1,6 @@
 import { Component, OnInit,  } from '@angular/core';
 import { Termin } from '../models/termin';
+import { Laan } from '../models/laan';
 
 @Component({
   selector: 'app-laan',
@@ -8,12 +9,7 @@ import { Termin } from '../models/termin';
 })
 export class LaanComponent implements OnInit {
 
-  laanebelop: number;
-  aarligRente: number;
-  manedligRente: number;
-  antallAar: number;
-  antallTerminer: number;
-  totaltAntallTerminer: number;
+  mittLaan: Laan;
   terminBelop: number;
   terminer: Termin[];
 
@@ -21,33 +17,23 @@ export class LaanComponent implements OnInit {
 
   ngOnInit() {
     this.initVerdier();
-    this.beregn();
-    const forsteTermin = this.beregnTerminBelop(this.antallTerminer, 1, this.laanebelop);
-    this.terminBelop = forsteTermin.terminbelop;
   }
 
   initVerdier(): void {
-    this.laanebelop = 0;
-    this.aarligRente = 0;
-    this.antallAar = 0;
-    this.antallTerminer = 0;
-    this.totaltAntallTerminer = 0;
-    this.manedligRente = 0;
+    const lagretLaan = JSON.parse(localStorage.getItem('lån'));
+    this.mittLaan = new Laan();
+    if (lagretLaan !== null) {            
+      this.mittLaan.laanebelop = lagretLaan.laanebelop;
+      this.mittLaan.aarligRente = lagretLaan.aarligRente;
+      this.mittLaan.antallAar = lagretLaan.antallAar;
+      this.mittLaan.terminBelop = lagretLaan.terminBelop;
+    } 
     this.terminBelop = 0;
     this.terminer = new Array();
   }
 
-  beregn(): void {
-    this.antallTerminer = this.antallAar * 12;
-    this.beregnMndRente();
-  }
-
-  beregnMndRente(): void {
-    this.manedligRente = this.aarligRente / 12;
-  }
-
   beregnTerminBelop(gjenstaaendeTermin: number, terminNr: number, restgjeld: number): Termin {
-    const Rente100 = this.manedligRente / 100;
+    const Rente100 = this.mittLaan.mndRente() / 100;
     const Rente1k100 = 1 + Rente100;
     const forholdGmlNy = Rente100 / (1 - (Rente1k100 ** -gjenstaaendeTermin));
     
@@ -71,11 +57,10 @@ export class LaanComponent implements OnInit {
 
   beregnTerminer(): void {
     this.terminer = new Array();
-    this.beregn();
     let gjeldendeTermin = 0;
-    let gjeld = this.laanebelop;
-    let terminNr = this.antallTerminer;
-    for (let index = this.antallTerminer - 1; index >= 0; index--) {
+    let gjeld = this.mittLaan.laanebelop;
+    let terminNr = this.mittLaan.totaltAntallTerminer();
+    for (let index = this.mittLaan.totaltAntallTerminer() - 1; index >= 0; index--) {
       gjeldendeTermin = ++gjeldendeTermin;
       const nyTermin = this.beregnTerminBelop(terminNr, gjeldendeTermin, gjeld);
       this.terminer.push(nyTermin);
@@ -87,6 +72,7 @@ export class LaanComponent implements OnInit {
       this.terminBelop = this.terminer[this.terminer.length - 1].terminbelop;
     }
     console.log('Beregning utført');
+    localStorage.setItem('lån', JSON.stringify(this.mittLaan));
 
   }
 
