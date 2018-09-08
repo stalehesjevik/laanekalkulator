@@ -6,5 +6,6 @@ export class Termin {
     rentebelop: number;
     avdrag: number;
     restLaanebelop: number;
+    forholdstall: number;
 }
 

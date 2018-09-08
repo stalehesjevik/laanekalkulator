@@ -1,3 +1,16 @@
+<nav class="navbar is-info" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="">
+        <img src="favicon.ico" width="28" height="28">
+      </a>  
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+  </nav>
+
 <section class="section">
   <div class="container">
     <div class="columns is-centered">
@@ -21,6 +34,15 @@
             <input [(ngModel)]="mittLaan.antallAar" placeholder="Antall år" type="number" (keyup.enter)="beregnTerminer()">
           </div>
         </div>
+        <div class="field">
+        <I>eller</I>
+        </div>
+        <div class="field">
+          <label class="label">Terminbeløp</label>
+          <div class="control">
+            <input [(ngModel)]="mittLaan.terminBelop" placeholder="Beløp" type="number" (keyup.enter)="beregnTerminer()">
+          </div>
+        </div>
 
         <div class="field is-grouped">
           <div class="control">            
@@ -38,9 +60,11 @@
           <div class="columns is-centered">
             <div class="column is-half">
               <h3 class="title is-3">Resultat</h3>             
-                Antall terminer: {{mittLaan.beregnTerminer()}}<br>
+                Antall terminer: {{mittLaan.antallTerminer()}}<br>
+                Antall år: {{mittLaan.antallAar}}<br>
+                Antall mnd: {{mittLaan.antallMnd}}<br>
                 Månedlig rente: {{mittLaan.mndRente()}}<br>
-                Terminbeløp: {{terminBelop}}<br>
+                Terminbeløp: {{mittLaan.terminBelop}}<br>
                 Antall terminer beregnet: {{terminer.length}} <br>                 
             </div>
           </div>    
@@ -56,33 +80,36 @@
       <tr>
         <th>Termin</th>
         <th>Innbetaling</th>
+        <th>Forholdstall</th>
         <th>Avdrag</th>
         <th>Renter</th>
         <th>Restgjeld</th>
-        <th>Gjenstående terminer</th>      
-      </tr>    
-      <tr *ngFor="let termin of terminer">     
-          <td>
-            {{termin.terminNr}}
-          </td>
-          <td>
-            {{termin.terminbelop}}
-          </td>
-          <td>
-            {{termin.avdrag}}
-          </td>
-          <td>
-            {{termin.rentebelop}}
-          </td>
-          <td>
-            {{termin.restLaanebelop}}
-          </td>
-          <td>
-            {{termin.gjenstaaendeTerminer}}
-          </td>     
+        <th>Gjenstående terminer</th>
+      </tr>
+      <tr *ngFor="let termin of terminer">
+        <td>
+          {{termin.terminNr}}
+        </td>
+        <td>
+          {{termin.terminbelop}}
+        </td>
+        <td>
+          {{termin.forholdstall}}
+        </td>
+        <td>
+          {{termin.avdrag}}
+        </td>
+        <td>
+          {{termin.rentebelop}}
+        </td>
+        <td>
+          {{termin.restLaanebelop}}
+        </td>
+        <td>
+          {{termin.gjenstaaendeTerminer}}
+        </td>
       </tr>
     </table>
   </div>
-  
-</div>
 
+</div>
