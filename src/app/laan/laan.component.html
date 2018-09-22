@@ -17,6 +17,18 @@
       <div class="column is-half">
         <h3 class="title is-3">Låneberegning annuitetslån</h3>
         <div class="field">
+          <div class="control">
+            <label class="radio">
+              <input type="radio" name="typeBeregning" value='belop' [(ngModel)]="typeBeregning">
+              Finn terminbeløp
+            </label>
+            <label class="radio">
+              <input type="radio" name="typeBeregning" value='termin' [(ngModel)]="typeBeregning">
+              Finn antall terminer
+            </label>
+          </div>
+        </div>
+        <div class="field">
           <label class="label">Lånebeløp</label>
           <div class="control">
             <input [(ngModel)]="mittLaan.laanebelop" placeholder="Beløp" type="number" (keyup.enter)="beregnTerminer()">
@@ -28,24 +40,24 @@
             <input [(ngModel)]="mittLaan.aarligRente" placeholder="Rente" type="number" (keyup.enter)="beregnTerminer()">
           </div>
         </div>
-        <div class="field">
-          <label class="label">Antall år</label>
-          <div class="control">
-            <input [(ngModel)]="mittLaan.antallAar" placeholder="Antall år" type="number" (keyup.enter)="beregnTerminer()">
+        <div *ngIf="typeBeregning=='belop'">
+          <div class="field">
+            <label class="label">Antall år</label>
+            <div class="control">
+              <input [(ngModel)]="mittLaan.antallAar" placeholder="Antall år" type="number" (keyup.enter)="beregnTerminer()">
+            </div>
           </div>
         </div>
-        <div class="field">
-        <I>eller</I>
+        <div *ngIf="typeBeregning=='termin'">
+          <div class="field">
+            <label class="label">Terminbeløp</label>
+            <div class="control">
+              <input [(ngModel)]="mittLaan.terminBelop" placeholder="Beløp" type="number" (keyup.enter)="beregnTerminer()">
+            </div>
+          </div>  
         </div>
-        <div class="field">
-          <label class="label">Terminbeløp</label>
-          <div class="control">
-            <input [(ngModel)]="mittLaan.terminBelop" placeholder="Beløp" type="number" (keyup.enter)="beregnTerminer()">
-          </div>
-        </div>
-
         <div class="field is-grouped">
-          <div class="control">            
+          <div class="control">
             <button class="button is-link" (click)="beregnTerminer()">Beregn</button>
           </div>
         </div>
@@ -63,8 +75,7 @@
                 Antall terminer: {{mittLaan.antallTerminer()}}<br>
                 Antall år: {{mittLaan.antallAar}}<br>
                 Antall mnd: {{mittLaan.antallMnd}}<br>
-                Månedlig rente: {{mittLaan.mndRente()}}<br>
-                Terminbeløp: {{mittLaan.terminBelop}}<br>
+                Terminbeløp: {{mittLaan.terminBelop | number: '1.0-0'}}<br>
                 Antall terminer beregnet: {{terminer.length}} <br>                 
             </div>
           </div>    
@@ -80,34 +91,34 @@
       <tr>
         <th>Termin</th>
         <th>Innbetaling</th>
-        <th>Forholdstall</th>
+        <!-- <th>Forholdstall</th> -->
         <th>Avdrag</th>
         <th>Renter</th>
         <th>Restgjeld</th>
-        <th>Gjenstående terminer</th>
+        <!-- <th>Gjenstående terminer</th> -->
       </tr>
       <tr *ngFor="let termin of terminer">
         <td>
           {{termin.terminNr}}
         </td>
         <td>
-          {{termin.terminbelop}}
+          {{termin.terminbelop | number: '1.0-0' }}
         </td>
-        <td>
+        <!-- <td>
           {{termin.forholdstall}}
+        </td> -->
+        <td>
+          {{termin.avdrag | number: '1.0-0'}}
         </td>
         <td>
-          {{termin.avdrag}}
+          {{termin.rentebelop | number: '1.0-0'}}
         </td>
         <td>
-          {{termin.rentebelop}}
+          {{termin.restLaanebelop | number: '1.0-0'}}
         </td>
-        <td>
-          {{termin.restLaanebelop}}
-        </td>
-        <td>
+        <!-- <td>
           {{termin.gjenstaaendeTerminer}}
-        </td>
+        </td> -->
       </tr>
     </table>
   </div>

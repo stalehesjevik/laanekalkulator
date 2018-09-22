@@ -13,6 +13,8 @@ export class LaanComponent implements OnInit {
   mittLaan: Laan;
   beregning: Beregninger;  
   terminer: Termin[];
+  finnTerminbelop: boolean;
+  typeBeregning: string;
 
   constructor() { }
 
@@ -31,13 +33,19 @@ export class LaanComponent implements OnInit {
       this.mittLaan.terminBelop = lagretLaan.terminBelop;
     } 
     this.terminer = new Array();
+    this.finnTerminbelop = true;
+    // this.typeBeregning = "belop";
+    this.typeBeregning = "termin";
   }
 
   beregnTerminer(): void {
+    if (this.typeBeregning === 'belop') {
+      this.mittLaan.terminBelop = 0;
+    } else {
+      this.mittLaan.antallAar = 0;
+      this.mittLaan.antallMnd = 0;
+    }
     this.terminer = this.beregning.beregnTerminer(this.mittLaan);
-    // if (this.terminer.length > 0) {
-    //   this.mittLaan.terminBelop = 
-    // }
     console.log('Beregning utført');
     localStorage.setItem('lån', JSON.stringify(this.mittLaan));
   }
