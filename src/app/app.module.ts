@@ -8,11 +8,13 @@ library.add(fas);
 
 import { AppComponent } from './app.component';
 import { LaanComponent } from './laan/laan.component';
+import { SparingComponent } from './sparing/sparing.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LaanComponent
+    LaanComponent,
+    SparingComponent
   ],
   imports: [
     BrowserModule,

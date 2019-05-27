@@ -1,20 +1,19 @@
-import { Termin } from "./termin";
 
-export class Laan {
+export class Sparing {
     navn: string;
     trekkdag: number;
-    laanebelop: number;
+    saldo: number;
     aarligRente: number;
     antallAar: number;
     antallMnd: number;
-    terminBelop: number; 
+    mndspareBelop: number; 
 
     constructor() {
-        this.laanebelop = 0;
+        this.saldo = 0;
         this.aarligRente = 0;
         this.antallAar = 0;
         this.antallMnd = 0;
-        this.terminBelop = 0;
+        this.mndspareBelop = 0;
      }
 
     antallTerminer(): number {

@@ -1,0 +1,39 @@
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-half">
+                <h3 class="title is-3">Sparing</h3>
+
+        <div class="field">
+          <label class="label">Nåværende saldo</label>
+          <div class="control">
+            <input [(ngModel)]="minSparing.saldo" placeholder="Saldo" type="number" (keyup.enter)="beregnSparing()">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Antatt årlig avkastning</label>
+          <div class="control">
+            <input [(ngModel)]="minSparing.aarligRente" placeholder="Avkastning" type="number" (keyup.enter)="beregnSparing()">
+          </div>
+        </div>
+          <div class="field">
+            <label class="label">Antall år med sparing</label>
+            <div class="control">
+              <input [(ngModel)]="minSparing.antallAar" placeholder="Antall år" type="number" (keyup.enter)="beregnSparing()">
+            </div>
+          </div>
+           <div class="field">
+                  <label class="label">Månedlig sparebeløp</label>
+                  <div class="control">
+                    <input [(ngModel)]="minSparing.mndspareBelop" placeholder="Månedlig sparing" type="number" (keyup.enter)="beregnSparing()">
+                  </div>
+                </div>
+         <div class="field is-grouped">
+          <div class="control">
+            <button class="button is-link" (click)="beregnSparing()">Beregn</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
